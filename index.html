@@ -72,7 +72,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
-img { max-width: 100%; display: block; }
+img { max-width: 102%; display: block; }
 
 .shell-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 .shell-section { padding: calc(var(--space) * 2) 0; }
@@ -201,7 +201,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       z-index: 1000;
       transition: all 0.3s ease;
       background: var(--nav-bg);
-      backdrop-filter: blur(100px);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
     }
     .site-nav.scrolled {
@@ -279,7 +279,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       object-fit: contain;
     }
     .footer-inline-logo {
-      height: 22px;
+      height: 40px;
       width: auto;
       vertical-align: -5px;
       display: inline-block;
@@ -536,7 +536,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       max-width: 850px;
     }
     .hero-title span {
-      color: #38bdf8;
+      color: #2895b6;
     }
     .hero-lead {
       font-size: clamp(1.05rem, 2vw, 1.25rem);
@@ -579,7 +579,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       margin-bottom: 0.4rem;
     }
     .stat-number-wrap .accent-plus {
-      color: #38bdf8;
+      color: #2895b6;
       margin-left: 2px;
     }
     .stat-label {
@@ -790,7 +790,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     .steel-grid-pattern {
       position: absolute;
       inset: 0;
-      opacity: 0.25;
+      opacity: 0.60;
       background-image: 
         repeating-linear-gradient(0deg, #38bdf8, #38bdf8 1px, transparent 1px, transparent 20px),
         repeating-linear-gradient(90deg, #38bdf8, #38bdf8 1px, transparent 1px, transparent 20px);
@@ -843,6 +843,64 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       font-size: 0.9rem;
       color: var(--text-muted-custom);
       line-height: 1.5;
+    }
+
+    .portfolio-card { cursor: pointer; }
+    .portfolio-card:focus-visible { outline: 3px solid #38bdf8; outline-offset: 4px; }
+    .portfolio-modal {
+      position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem; background: rgba(3, 10, 22, 0.86); opacity: 0; visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .portfolio-modal.is-open { opacity: 1; visibility: visible; }
+    .portfolio-modal-dialog {
+      position: relative; width: min(1080px, 100%); max-height: min(850px, 94vh); overflow: auto;
+      background: var(--surface-card); border: 0px solid rgba(148, 163, 184, 0.3); border-radius: 15px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+    .portfolio-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2; width: 42px; height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; background: rgba(7, 18, 36, 0.72);
+      color: #ffffff; font-size: 1.8rem; line-height: 1; cursor: pointer;
+    }
+    .portfolio-modal-close:hover, .portfolio-modal-close:focus-visible,
+    .portfolio-modal-arrow:hover, .portfolio-modal-arrow:focus-visible { background: #0265dc; }
+    .portfolio-modal-media {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: min(58vh, 600px); padding: 3.5rem 5.5rem 1.5rem; background: #071224; touch-action: pan-y;
+    }
+    .portfolio-modal-image { width: 100%; height: min(58vh, 600px); object-fit: contain; }
+    .portfolio-modal-image.slide-next { animation: portfolio-slide-next 220ms ease both; }
+    .portfolio-modal-image.slide-previous { animation: portfolio-slide-previous 220ms ease both; }
+    @keyframes portfolio-slide-next {
+      from { opacity: 0.2; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes portfolio-slide-previous {
+      from { opacity: 0.2; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .portfolio-modal-arrow {
+      position: absolute; top: 50%; display: inline-flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px; border: 0px solid rgba(255, 255, 255, 0.25); border-radius: 50%;
+      background: rgba(7, 18, 36, 0.78); color: #ffffff; font-size: 2rem; line-height: 1;
+      cursor: pointer; transform: translateY(-50%);
+    }
+    .portfolio-modal-arrow.previous { left: 1.25rem; }
+    .portfolio-modal-arrow.next { right: 1.25rem; }
+    .portfolio-modal-caption { padding: 1.5rem 2rem 1.75rem; }
+    .portfolio-modal-caption .client-title { margin: 0 0 0.5rem; color: var(--navy); }
+    .portfolio-modal-caption .client-desc { margin: 0; max-width: 78ch; }
+    .portfolio-modal-counter { margin-top: 1rem; color: var(--text-muted-custom); font-size: 0.8rem; font-weight: 600; }
+    body.modal-open { overflow: hidden; }
+    @media (max-width: 600px) {
+      .portfolio-modal { padding: 0; }
+      .portfolio-modal-dialog { width: 100%; max-height: 100vh; border-radius: 0; }
+      .portfolio-modal-media { min-height: 52vh; padding: 3.5rem 3.75rem 1rem; }
+      .portfolio-modal-image { height: 52vh; }
+      .portfolio-modal-caption { padding: 1.25rem 1.25rem 1.5rem; }
+      .portfolio-modal-arrow.previous { left: 0.75rem; }
+      .portfolio-modal-arrow.next { right: 0.75rem; }
     }
 
     /* Linha do Tempo e História */
@@ -1619,7 +1677,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
               <div class="steel-grid-pattern">
-                <img src="img/imgi_89_default (1).jpg" alt="Nissan Leauto">
+                <img src="img/servicos/nissan_leauto/imgi_89_default (1).jpg" alt="Nissan Leauto">
               </div>
               <div class="steel-watermark">
                 <sg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
@@ -1638,9 +1696,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 2 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
-              <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+              <div class="steel-grid-pattern">
+                  <img src="img/servicos/fiat_leauto/fiat_leauto.jpg" alt="Fiat Leauto"></div>
+                  <div class="steel-watermark">
                 <span>Concessionária</span>
               </div>
             </div>
@@ -1656,9 +1714,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 3 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/hotel_americas/imgi_95_default (2).jpg" alt="Hotel Américas"></div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
+                
                 <span>Hotelaria</span>
               </div>
             </div>
@@ -1674,9 +1732,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 4 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/mercedes/mercedes.jpg" alt="Mercedes"></div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="12"></line><line x1="12" y1="12" x2="4.93" y2="17.07"></line><line x1="12" y1="12" x2="19.07" y2="17.07"></line></svg>
+              
                 <span>Concessionária Premium</span>
               </div>
             </div>
@@ -1692,9 +1750,10 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 5 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/denza/mercedes_denza.jpg" alt="Denza">
+              </div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+                
                 <span>Concessionária</span>
               </div>
             </div>
@@ -1710,9 +1769,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 6 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/resitec/resitec.jpg" alt="Resitec"></div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"></path><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+                
                 <span>Indústria</span>
               </div>
             </div>
@@ -1728,9 +1787,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 7 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/motus/motus.jpg" alt="Motus"></div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                
                 <span>Comercial / Fabril</span>
               </div>
             </div>
@@ -1746,9 +1805,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <!-- Item 8 -->
           <article class="portfolio-card reveal-elem">
             <div class="steel-preview">
-              <div class="steel-grid-pattern"></div>
+              <div class="steel-grid-pattern"> <img src="img/servicos/ecofire/ecofire.jpg" alt="Ecofire"></div>
               <div class="steel-watermark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                
                 <span>Alta Complexidade</span>
               </div>
             </div>
@@ -1763,6 +1822,23 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
         </div>
       </div>
     </section>
+
+    <div class="portfolio-modal" id="portfolioModal" aria-hidden="true">
+      <div class="portfolio-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="portfolioModalTitle">
+        <button class="portfolio-modal-close" id="portfolioModalClose" type="button" aria-label="Fechar galeria">&times;</button>
+        <div class="portfolio-modal-media">
+          <button class="portfolio-modal-arrow previous" id="portfolioPrevious" type="button" aria-label="Imagem anterior">&#8249;</button>
+          <img class="portfolio-modal-image" id="portfolioModalImage" src="" alt="">
+          <button class="portfolio-modal-arrow next" id="portfolioNext" type="button" aria-label="Próxima imagem">&#8250;</button>
+        </div>
+        <div class="portfolio-modal-caption">
+          <div class="client-tag" id="portfolioModalCategory"></div>
+          <h2 class="client-title" id="portfolioModalTitle"></h2>
+          <p class="client-desc" id="portfolioModalDescription"></p>
+          <div class="portfolio-modal-counter" id="portfolioModalCounter" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- SOBRE / HISTÓRIA & TIMELINE -->
     <section class="section-wrap" id="sobre">
@@ -2228,6 +2304,113 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       } else {
         startCounters();
       }
+
+      const portfolioModal = document.getElementById('portfolioModal');
+      const portfolioModalMedia = document.querySelector('.portfolio-modal-media');
+      const portfolioImage = document.getElementById('portfolioModalImage');
+      const portfolioCategory = document.getElementById('portfolioModalCategory');
+      const portfolioTitle = document.getElementById('portfolioModalTitle');
+      const portfolioDescription = document.getElementById('portfolioModalDescription');
+      const portfolioCounter = document.getElementById('portfolioModalCounter');
+      const portfolioCards = document.querySelectorAll('.portfolio-card');
+      let currentGallery = [];
+      let currentImageIndex = 0;
+      let lastFocusedCard = null;
+      let touchStartX = 0;
+
+      const galleryFolders = {
+        'Nissan Leauto': 'nissan_leauto',
+        'Fiat Leauto': 'fiat_leauto',
+        'Hotel Américas': 'hotel_americas',
+        Mercedes: 'mercedes',
+        Denza: 'denza',
+        Resitec: 'resitec',
+        Motus: 'motus',
+        Ecofire: 'ecofire'
+      };
+      const galleryImages = {
+        'Nissan Leauto': ['imgi_100_default (4).jpg', 'imgi_101_default (5).jpg', 'imgi_102_default (4).jpg', 'imgi_103_default (3).jpg', 'imgi_104_default (3).jpg', 'imgi_105_default (2).jpg', 'imgi_106_default.jpg', 'imgi_107_default.jpg', 'imgi_108_default.jpg', 'imgi_109_default.jpg', 'imgi_111_default.jpg', 'imgi_112_default.jpg', 'imgi_113_default.jpg', 'imgi_114_default.jpg', 'imgi_89_default (1).jpg', 'imgi_98_default (5).jpg', 'imgi_99_default (5).jpg'],
+        'Fiat Leauto': ['fiat_leauto.jpg'],
+        'Hotel Américas': ['imgi_94_default (1).jpg', 'imgi_94_default (2).jpg', 'imgi_95_default (1).jpg', 'imgi_95_default (2).jpg'],
+        Mercedes: ['imgi_100_default (2).jpg', 'imgi_101_default (2).jpg', 'imgi_101_default (3).jpg', 'imgi_102_default (2).jpg', 'imgi_102_default (3).jpg', 'imgi_103_default (2).jpg', 'imgi_104_default (2).jpg', 'imgi_105_default.jpg', 'imgi_86_default (1).jpg', 'imgi_86_default (2).jpg', 'imgi_86_default (3).jpg', 'imgi_87_default (1).jpg', 'imgi_87_default (2).jpg', 'imgi_87_default (3).jpg', 'imgi_97_default (1).jpg', 'imgi_98_default (2).jpg', 'imgi_98_default (3).jpg', 'imgi_99_default (2).jpg', 'imgi_99_default (3).jpg'],
+        Denza: ['imgi_100_default (1).jpg', 'imgi_100_default_(3).jpg', 'imgi_101_default (1).jpg', 'imgi_101_default (4).jpg', 'imgi_102_default (1).jpg', 'imgi_103_default (1).jpg', 'imgi_104_default (1).jpg', 'imgi_105_default _(1).jpg', 'imgi_83_default (1).jpg', 'imgi_83_default (2).jpg', 'imgi_84_default (1).jpg', 'imgi_84_default (2).jpg', 'imgi_85_default (1).jpg', 'imgi_85_default (2).jpg', 'imgi_88_default (1).jpg', 'imgi_88_default (2).jpg', 'imgi_88_default_(3).jpg', 'imgi_98_default (1).jpg', 'imgi_98_default (4).jpg', 'imgi_99_default (1).jpg', 'imgi_99_default (4).jpg'],
+        Resitec: ['filtro_de_manga_resitec.jpg', 'montagem_resitec.jpg', 'soprador_resitec.jpg'],
+        Motus: ['montagem_motus_sp.jpg'],
+        Ecofire: ['montagem_ecofire.jpg']
+      };
+
+      function updatePortfolioImage(direction = 0) {
+        const imageName = currentGallery[currentImageIndex];
+        const folderName = galleryFolders[portfolioTitle.textContent];
+        portfolioImage.classList.remove('slide-next', 'slide-previous');
+        if (direction !== 0) {
+          void portfolioImage.offsetWidth;
+          portfolioImage.classList.add(direction > 0 ? 'slide-next' : 'slide-previous');
+        }
+        portfolioImage.src = `img/servicos/carrossel_${folderName}/${imageName}`;
+        portfolioImage.alt = `${portfolioTitle.textContent} - imagem ${currentImageIndex + 1}`;
+        portfolioCounter.textContent = `${currentImageIndex + 1} de ${currentGallery.length}`;
+      }
+
+      function closePortfolioModal() {
+        portfolioModal.classList.remove('is-open');
+        portfolioModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+        if (lastFocusedCard) lastFocusedCard.focus();
+      }
+
+      function openPortfolioModal(card) {
+        lastFocusedCard = card;
+        const title = card.querySelector('.client-title').textContent.trim();
+        currentGallery = galleryImages[title] || [];
+        currentImageIndex = 0;
+        portfolioCategory.textContent = card.querySelector('.client-tag').textContent.trim();
+        portfolioTitle.textContent = title;
+        portfolioDescription.textContent = card.querySelector('.client-desc').textContent.trim();
+        updatePortfolioImage();
+        portfolioModal.classList.add('is-open');
+        portfolioModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        document.getElementById('portfolioModalClose').focus();
+      }
+
+      portfolioCards.forEach(card => {
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('click', () => openPortfolioModal(card));
+        card.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openPortfolioModal(card);
+          }
+        });
+      });
+
+      function navigatePortfolioImage(direction) {
+        currentImageIndex = (currentImageIndex + direction + currentGallery.length) % currentGallery.length;
+        updatePortfolioImage(direction);
+      }
+
+      document.getElementById('portfolioModalClose').addEventListener('click', closePortfolioModal);
+      document.getElementById('portfolioPrevious').addEventListener('click', () => navigatePortfolioImage(-1));
+      document.getElementById('portfolioNext').addEventListener('click', () => navigatePortfolioImage(1));
+      portfolioModalMedia.addEventListener('touchstart', event => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+      portfolioModalMedia.addEventListener('touchend', event => {
+        const touchDistance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(touchDistance) < 45) return;
+        navigatePortfolioImage(touchDistance < 0 ? 1 : -1);
+      }, { passive: true });
+      portfolioModal.addEventListener('click', event => {
+        if (event.target === portfolioModal) closePortfolioModal();
+      });
+      document.addEventListener('keydown', event => {
+        if (!portfolioModal.classList.contains('is-open')) return;
+        if (event.key === 'Escape') closePortfolioModal();
+        if (event.key === 'ArrowLeft') document.getElementById('portfolioPrevious').click();
+        if (event.key === 'ArrowRight') document.getElementById('portfolioNext').click();
+      });
     });
 
     // Handle Form Submit & generate direct WhatsApp text
